@@ -2,6 +2,7 @@
   <div>
     <div class="main">
       <i class="el-icon-s-fold" @click="isClose"></i>
+      <i class="el-icon-s-home" @click="isHome"></i>
     </div>
     <div>
       <my-foreign v-if="this.menus==11"></my-foreign>
@@ -28,6 +29,8 @@
       <my-externalrecords v-else-if="this.menus==74"></my-externalrecords>
       <my-behavioranalysis v-else-if="this.menus==75"></my-behavioranalysis>
       <my-track v-else-if="this.menus==76"></my-track>
+      <my-home v-else-if="this.menus==1"></my-home>
+      <my-home v-else></my-home>
     </div>
   </div>
 </template>
@@ -58,6 +61,7 @@ import MyWarningdisplay from "../components/cockpit/Warning-display";
 import MyExternalrecords from "../components/cockpit/External-records";
 import MyBehavioranalysis from "../components/cockpit/Behavior-analysis";
 import MyTrack from "../components/cockpit/Track";
+import MyHome from '../components/Home';
 export default {
     data() {
         return {
@@ -65,6 +69,7 @@ export default {
         }
     },
   components: {
+    MyHome,
     MyForeign,
     MyPersonnel,
     MyAlarmlist,
@@ -94,6 +99,9 @@ export default {
     isClose() {
       EventBus.$emit("msg", "msg");
     },
+    isHome(){
+      this.menus = 1
+    }
   },
   mounted () {
         var _this = this
@@ -112,5 +120,8 @@ export default {
   border-color: aquamarine;
   line-height: 40px;
   font-size: 26px;
+  .el-icon-s-home {
+    margin-left: 8px;
+  }
 }
 </style>
