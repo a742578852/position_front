@@ -38,21 +38,21 @@
     </div>
     <div>
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column fixed type="index" label="序号" width="60" style="border-right:1px solid">
+        <el-table-column fixed type="index" label="序号" width="90%" style="border-right:1px solid">
         </el-table-column>
-        <el-table-column prop="date" label="进入时间" width="160">
+        <el-table-column prop="date" label="进入时间" width="170%">
         </el-table-column>
-        <el-table-column prop="name" label="离开时间" width="160">
+        <el-table-column prop="name" label="离开时间" width="170%">
         </el-table-column>
-        <el-table-column prop="province" label="访客/车辆名称" width="130">
+        <el-table-column prop="province" label="访客/车辆名称" width="150%">
         </el-table-column>
-        <el-table-column prop="city" label="进出类型" width="120">
+        <el-table-column prop="city" label="进出类型" width="150%">
         </el-table-column>
-        <el-table-column prop="address" label="身份" width="120">
+        <el-table-column prop="address" label="身份" width="150%">
         </el-table-column>
-        <el-table-column prop="zip" label="驾驶员" width="120">
+        <el-table-column prop="zip" label="驾驶员" width="150%">
         </el-table-column>
-        <el-table-column prop="" label="定位卡状态" width="120">
+        <el-table-column prop="po" label="定位卡状态" width="150%">
         </el-table-column>
         <el-table-column fixed="right" label="操作" >
           <template slot-scope="scope">
@@ -83,6 +83,7 @@ export default {
           city: "进入",
           address: "车辆",
           zip: '赵四',
+          po:'正常'
         },
       ],
     };

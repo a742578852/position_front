@@ -33,9 +33,7 @@
       >
     </div>
     <div>
-      <el-table :data="tableData" border style="width: 100%" @selection-change="changeFun">
-        <el-table-column prop="" label="" width="50%" type="selection">
-        </el-table-column>
+      <el-table :data="tableData" border style="width: 100%" >
         <el-table-column fixed type="index" label="序号" width="90%" >
         </el-table-column>
         <el-table-column prop="date" label="姓名" width="150%" >
@@ -87,14 +85,6 @@ export default {
     };
   },
   methods: {
-    //给多选框赋值
-    changeFun(val) {
-            this.checkBoxData = val;
-            console.log(val)
-        },
-    handleClick(row) {
-      console.log(row);
-    },
     handleCommand(key) {
       if (key == "all") {
         this.inOutType = "全部";
