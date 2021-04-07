@@ -67,7 +67,7 @@
         <el-menu-item index="6-4" @click="menu64">参数设置</el-menu-item>
         <el-menu-item index="6-5" @click="menu65">操作日志</el-menu-item>
       </el-submenu>
-      <el-submenu index="7">
+      <!-- <el-submenu index="7">
         <template slot="title">
           <i class="el-icon-s-platform"></i>
           <span>驾驶舱</span>
@@ -78,7 +78,7 @@
         <el-menu-item index="7-4" @click="menu74">外来人员车辆登记记录</el-menu-item>
         <el-menu-item index="7-5" @click="menu75">行为分析</el-menu-item>
         <el-menu-item index="7-6" @click="menu76">追踪</el-menu-item>
-      </el-submenu>
+      </el-submenu> -->
     </el-menu>
   </div>
 </template>
