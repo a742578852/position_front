@@ -4,7 +4,7 @@
       <el-button type="primary" plain>+ 添加访客</el-button>
       <el-button type="primary" plain>+ 添加车辆</el-button>
     </div>
-    <div>
+    <div style="display:flex;justify-content: space-around;">
       <el-input placeholder="姓名/车牌号/电话" v-model="input1" clearable>
       </el-input>
       <el-dropdown split-button type="primary" @command="handleCommand">
@@ -23,6 +23,7 @@
           <el-dropdown-item command="cars">车辆</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <div>
       <span class="demonstration">时间:</span>
       <el-date-picker
         v-model="value1"
@@ -32,6 +33,7 @@
         end-placeholder="结束日期"
       >
       </el-date-picker>
+      </div>
       <el-button type="primary" icon="el-icon-search" style="margin-left: 20px"
         >查询</el-button
       >

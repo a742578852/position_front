@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="main">
     <div class="main">
       <i class="el-icon-s-fold" @click="isClose"></i>
       <i class="el-icon-s-home" @click="isHome"></i>
     </div>
-    <div>
+    <div class="content">
       <my-foreign v-if="this.menus==11"></my-foreign>
       <my-personnel v-else-if="this.menus==12"></my-personnel>
       <my-alarmlist v-else-if="this.menus==21"></my-alarmlist>
@@ -30,6 +30,7 @@
       <my-behavioranalysis v-else-if="this.menus==75"></my-behavioranalysis>
       <my-track v-else-if="this.menus==76"></my-track>
       <my-home v-else-if="this.menus==1"></my-home>
+      <my-cockpit v-else-if="this.menus==77"></my-cockpit>
       <my-home v-else></my-home>
     </div>
   </div>
@@ -62,6 +63,7 @@ import MyExternalrecords from "../components/cockpit/External-records";
 import MyBehavioranalysis from "../components/cockpit/Behavior-analysis";
 import MyTrack from "../components/cockpit/Track";
 import MyHome from '../components/Home';
+import MyCockpit from '../components/cockpit/Cockpit';
 export default {
     data() {
         return {
@@ -93,7 +95,8 @@ export default {
     MyWarningdisplay,
     MyExternalrecords,
     MyBehavioranalysis,
-    MyTrack
+    MyTrack,
+    MyCockpit,
   },
   methods: {
     isClose() {
@@ -113,15 +116,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
+#main {
   width: 100%;
-  height: 40px;
-  border-bottom: 1px solid;
-  border-color: aquamarine;
-  line-height: 40px;
-  font-size: 26px;
-  .el-icon-s-home {
-    margin-left: 8px;
+  height: 100%;
+  .main {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid;
+    border-color: aquamarine;
+    line-height: 40px;
+    font-size: 26px;
+    .el-icon-s-home {
+      margin-left: 8px;
+    }
   }
 }
 </style>

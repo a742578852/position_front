@@ -15,6 +15,7 @@ const routes = [
     name: "index",
     component: () => import("../views/index"),
   },
+  
 ];
 
 const router = new VueRouter({
