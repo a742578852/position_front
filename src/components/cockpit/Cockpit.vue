@@ -8,7 +8,7 @@
 </template>
 
 <script>
-
+import  {Cube} from '../../../public/cube.js'
 import * as Three from 'three'
 import OrbitControls from 'three-orbitcontrols'
 import  {MTLLoader,OBJLoader} from 'three-obj-mtl-loader'
@@ -41,8 +41,8 @@ methods:{
     
     //创建相机
     this.camera = new Three.PerspectiveCamera(65,width/height,0.1,10000)
-    this.camera.position.y = -300
-    this.camera.position.z = 1000
+    this.camera.position.y = -600
+    this.camera.position.z = 1600
     this.camera.lookAt(0,0,0)
     this.scene.add(this.camera)
 
@@ -74,45 +74,116 @@ methods:{
         this.scene.add(directionalLight)
 
       //创建主地面
-      const floorMain = new Three.BoxGeometry(2000,1000,10)
+      const floorMain = new Three.BoxGeometry(2000,1500,10)
       const floorMeterial = new Three.MeshLambertMaterial({
         color:7377883,
         transparent:true,
         opacity:0.4
       })
       const floorMesh = new Three.Mesh(floorMain,floorMeterial)
-      floorMesh.position.set(0,0,0)
+      floorMesh.position.set(0,100,0)
       this.scene.add(floorMesh)
+
+      //创建测试小楼1
+      const build1 = new Three.BoxGeometry(520,100,150)
+      const build1Material = new Three.MeshLambertMaterial({
+        opacity:0.7,
+        transparent:true,
+        color:7377883,
+      })
+      const build1Mesh = new Three.Mesh(build1,build1Material)
+      build1Mesh.position.set(-600,750,100)
+
+      //创建测试小楼2
+      const build2 = new Three.BoxGeometry(520,100,150)
+      const build2Material = new Three.MeshLambertMaterial({
+        opacity:0.7,
+        transparent:true,
+        color:7377883,
+      })
+      const build2Mesh = new Three.Mesh(build2,build2Material)
+      build2Mesh.position.set(0,750,100)
+
+      //创建测试小楼3
+      const build3 = new Three.BoxGeometry(360,840,150)
+      const build3Material = new Three.MeshLambertMaterial({
+        opacity:0.5,
+        transparent:true,
+        color:7377883,
+      })
+      const build3Mesh = new Three.Mesh(build3,build3Material)
+      build3Mesh.position.set(600,350,100)
+      this.scene.add(build1Mesh,build2Mesh,build3Mesh)
+
+      //创建测试小楼1-1
+      const build11 = new Three.BoxGeometry(520,100,150)
+      const build11Material = new Three.MeshLambertMaterial({
+        opacity:0.7,
+        transparent:true,
+        color:7377883,
+      })
+      const build11Mesh = new Three.Mesh(build11,build11Material)
+      build11Mesh.position.set(-600,-550,100)
+
+      //创建测试小楼2-2
+      const build22 = new Three.BoxGeometry(520,100,150)
+      const build22Material = new Three.MeshLambertMaterial({
+        opacity:0.7,
+        transparent:true,
+        color:7377883,
+      })
+      const build22Mesh = new Three.Mesh(build22,build22Material)
+      build22Mesh.position.set(0,-550,100)
+
+      //创建测试小楼3-3
+      const build33 = new Three.BoxGeometry(520,100,150)
+      const build33Material = new Three.MeshLambertMaterial({
+        opacity:0.7,
+        transparent:true,
+        color:7377883,
+      })
+      const build33Mesh = new Three.Mesh(build33,build33Material)
+      build33Mesh.position.set(600,-550,100)
+      this.scene.add(build1Mesh,build2Mesh,build3Mesh,build11Mesh,build22Mesh,build33Mesh)
   },
+  //获取实时数据
   getStoreData  () {
     $.ajax({
-        url: "http://192.168.199.216:8888/location-position/test/getLocation",
+        url: "http://192.168.3.49:8888/location-position/api/v1/location/realTimeLocation",
         type: 'GET',
         dataType: 'JSON',
         data: {},
         success: function (data) {
+          
             window.localStorage.setItem('Store3DData',JSON.stringify(data.data[0].x));
+            window.localStorage.setItem('Store3DData1',JSON.stringify(data.data[0].y));
         }
         
     });
-    var s = window.localStorage.getItem('Store3DData')
-    this.getObj(s)
+    var x = window.localStorage.getItem('Store3DData')
+  var y = window.localStorage.getItem('Store3DData1')
+    console.log(x+'  '+y)
+    this.getObj(x,y)
     //删除重复小车
       var allChildren = this.scene.children;
       var lastObject = allChildren[allChildren.length-1];
       this.scene.remove(lastObject);
     
-},
-        //渲染动画
-        animate() {
-          requestAnimationFrame(this.animate)
-        
-          // 更新加载器
-          this.renderer.render(this.scene, this.camera)
-      },
-      //加载外部模型
-      
-      getObj(val) {
+  },
+
+    /**
+     * 渲染动画
+     */
+    animate() {
+      requestAnimationFrame(this.animate)
+      // 更新加载器
+      this.renderer.render(this.scene, this.camera)
+    },
+
+      /**
+       * 加载外部模型
+       */
+      getObj(x,y) {
         const mtlLoader = new MTLLoader()// 材质文件加载器
         const objLoader = new OBJLoader()// obj加载器
         
@@ -121,9 +192,10 @@ methods:{
         objLoader.setMaterials(materials)
         objLoader.load('../../static/AGV.obj', (object) => {
           object.name = '小车'
-           object.position.set(val,1,40)
+          //  object.position.set(x,y,40)
+           object.position.set(-100,100,40)
           object.rotateX(-29.8)
-          object.scale.set(0.1,0.1,0.1)
+          object.scale.set(0.06,0.06,0.06)
           this.scene.add(object)
         })
       })
@@ -133,27 +205,13 @@ methods:{
 mounted(){
   this.init()
   this.animate()
-  // this.getObj(this.val)
-  this.timer = setInterval(this.getStoreData, 3000);
+  // this.getObj()
+  // this.timer = setInterval(this.getStoreData, 3000);
 },
 beforeDestroy() {
       clearInterval(this.timer);
-     
     },
     
-// watch:{
-//   val:function(newVal,oldVal){
-//     console.log('111 '+newVal+'  222'+oldVal)
-//     if(newVal!=oldVal){
-//       this.getObj(newVal)
-//       //删除重复小车
-//       var allChildren = this.scene.children;
-//       var lastObject = allChildren[allChildren.length-1];
-//       this.scene.remove(lastObject);
-//     }
-//   }
-  
-// }
   }
 </script>
 

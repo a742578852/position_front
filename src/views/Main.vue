@@ -24,6 +24,7 @@ import MyMain from '../components/Main'
           MyAside,
           MyMain
         },
+        
     }
 </script>
 
